@@ -1,0 +1,61 @@
+name: 'golangci-lint-action-go'
+description: 'Go implementation of the golangci-lint GitHub Action'
+author: 'StevenACoffman'
+
+inputs:
+  version:
+    description: 'golangci-lint version (e.g. v2.3, v2.3.4, latest, or empty for auto-detect)'
+    default: ''
+  version-file:
+    description: 'Path to .golangci-lint-version or .tool-versions file'
+    default: ''
+  install-mode:
+    description: 'Installation mode: binary, goinstall, or none'
+    default: 'binary'
+  install-only:
+    description: 'If true, install but do not run the linter'
+    default: 'false'
+  working-directory:
+    description: 'Directory to run the linter in (empty = process working directory)'
+    default: ''
+  github-token:
+    description: 'GitHub token for API calls (PR diff, push diff)'
+    default: '${{ github.token }}'
+  verify:
+    description: 'Run golangci-lint config verify before linting'
+    default: 'true'
+  only-new-issues:
+    description: 'Pass diff-based --new-from-* flags to restrict output to new issues'
+    default: 'false'
+  args:
+    description: 'Arbitrary flags forwarded verbatim to golangci-lint run'
+    default: ''
+  skip-cache:
+    description: 'Disable both cache restore and cache save'
+    default: 'false'
+  skip-save-cache:
+    description: 'Disable cache save only (restore still happens)'
+    default: 'false'
+  cache-invalidation-interval:
+    description: 'Rotate cache key every N days (0 or negative = unique key per run)'
+    default: '7'
+  problem-matchers:
+    description: 'If true, register the embedded problem-matcher JSON'
+    default: 'false'
+  debug:
+    description: 'Comma-separated debug flags: cache, clean'
+    default: ''
+  experimental:
+    description: 'Comma-separated experimental flags: automatic-module-directories'
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Run golangci-lint
+      shell: bash
+      run: golangci-lint-action-go run
+    - name: Save cache
+      if: always()
+      shell: bash
+      run: golangci-lint-action-go post-run
