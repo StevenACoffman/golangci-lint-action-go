@@ -29,8 +29,8 @@ without hitting API rate limits — these two variables serve different purposes
 ### 1. Tag the Release
 
 ```sh
-git tag -a v0.5.0 -m "Release v0.5.0"
-git push origin v0.5.0
+git tag -a v0.6.0 -m "Release v0.6.0"
+git push origin v0.6.0
 ```
 
 Use [semantic versioning](https://semver.org): `vMAJOR.MINOR.PATCH`.
@@ -112,7 +112,7 @@ wheel, and uploads each wheel to PyPI.
 To target a specific release tag rather than the latest:
 
 ```sh
-gowheels pypi --name golangci-lint-action-go --package-name golangci_lint_action_go --repo StevenACoffman/golangci-lint-action-go --version v0.5.0 --upload
+gowheels pypi --name golangci-lint-action-go --package-name golangci_lint_action_go --repo StevenACoffman/golangci-lint-action-go --version v0.6.0 --upload
 ```
 
 ---
